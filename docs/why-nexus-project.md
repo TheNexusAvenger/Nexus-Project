@@ -86,3 +86,68 @@ local Project = NexusProject.new(game:GetService("ReplicatedStorage"):WaitForChi
 Project:SetResource("ColorUtil",Project:GetResource("Util.ColorUtil"))
 Project:SetResource("TweenUtil",Project:GetResource("Util.TweenUtil"))
 ```
+
+## Cyclic Dependency Detection and Correction
+Cyclic dependency (A requires B, B requires A) happens a
+lot and can be hard to detect. Using "contexts", detecting
+them can be pretty easy. For example, assume there are the
+following scripts:
+```lua
+--ReplicatedStorage/Client
+local NexusProject = require(script:WaitForChild("NexusProject"))
+local Client = NexusProject.new(script)
+
+return Client
+```
+
+```lua
+--ReplicatedStorage/Client/Util/ColorUtil
+local Client = require(script.Parent.Parent):GetContext(script)
+local TweenUtil = Client:GetResource("Util.TweenUtil")
+local ColorUtil = {}
+
+return ColorUtil
+```
+
+```lua
+--ReplicatedStorage/Client/Util/TweenUtil
+local Client = require(script.Parent.Parent):GetContext(script)
+local TeleportUtil = Client:GetResource("Util.TeleportUtil")
+local TweenUtil = {}
+
+return TweenUtil
+```
+
+```lua
+--ReplicatedStorage/Client/Util/TeleportUtil
+local Client = require(script.Parent.Parent):GetContext(script)
+local ColorUtil = Client:GetResource("Util.ColorUtil")
+local TeleportUtil = {}
+
+return TeleportUtil
+```
+
+Would result in the following warning:
+```
+A dependency loop exists:
+Util.ColorUtil
+Util.TweenUtil
+Util.TeleportUtil
+Util.ColorUtil
+Use NexusProject::SetResource or NexusProjectContext::SetContextResource to allow the loop to end without having to load the resources.
+```
+
+The last line shows how it can be mitigated. All 3
+modules end up in a deadlock since each need each
+other to finish loading to continue. The quick way
+to resolve this is to set one of the resources so
+the others can finish loading.
+```lua
+--ReplicatedStorage/Client/Util/TweenUtil
+local Client = require(script.Parent.Parent):GetContext(script)
+local TweenUtil = {}
+Client:SetContextResource(TweenUtil)
+local TeleportUtil = Client:GetResource("Util.TeleportUtil")
+
+return TweenUtil
+```
