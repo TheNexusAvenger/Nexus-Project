@@ -1,0 +1,24 @@
+site_name: Nexus Project Documentation
+site_url: https://thenexusavenger.github.io/Nexus-Project
+repo_name: TheNexusAvenger/Nexus-Project
+repo_url: https://github.com/TheNexusAvenger/Nexus-Project
+
+theme:
+  name: 'material'
+  palette:
+    primary: 'Blue'
+    accent: 'Light Blue'
+
+nav:
+  - Home: index.md
+  - Why Nexus Project: why-nexus-project.md
+  - Usage: 
+    - Intended Setup: getting-started/intended-setup.md
+    - Classes:
+      - NexusProject: getting-started/classes/nexusproject.md
+      - NexusProjectContext: getting-started/classes/nexusprojectcontext.md
+  - Contributing: contributing.md
+
+markdown_extensions:
+  - admonition
+  - codehilite
