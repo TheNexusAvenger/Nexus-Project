@@ -290,6 +290,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#cyclic-dependency-detection-and-correction" class="md-nav__link">
+    Cyclic Dependency Detection and Correction
+  </a>
+  
+</li>
+      
       
       
       
@@ -445,6 +452,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#cyclic-dependency-detection-and-correction" class="md-nav__link">
+    Cyclic Dependency Detection and Correction
+  </a>
+  
+</li>
+      
       
       
       
@@ -545,6 +559,71 @@ make it more clear, or to refactor code.</p>
 <span class="c1">--Redirect resources.</span>
 <span class="n">Project</span><span class="p">:</span><span class="n">SetResource</span><span class="p">(</span><span class="s2">&quot;ColorUtil&quot;</span><span class="p">,</span><span class="n">Project</span><span class="p">:</span><span class="n">GetResource</span><span class="p">(</span><span class="s2">&quot;Util.ColorUtil&quot;</span><span class="p">))</span>
 <span class="n">Project</span><span class="p">:</span><span class="n">SetResource</span><span class="p">(</span><span class="s2">&quot;TweenUtil&quot;</span><span class="p">,</span><span class="n">Project</span><span class="p">:</span><span class="n">GetResource</span><span class="p">(</span><span class="s2">&quot;Util.TweenUtil&quot;</span><span class="p">))</span>
+</pre></div>
+
+
+<h2 id="cyclic-dependency-detection-and-correction">Cyclic Dependency Detection and Correction</h2>
+<p>Cyclic dependency (A requires B, B requires A) happens a
+lot and can be hard to detect. Using "contexts", detecting
+them can be pretty easy. For example, assume there are the
+following scripts:</p>
+<div class="codehilite"><pre><span></span><span class="c1">--ReplicatedStorage/Client</span>
+<span class="kd">local</span> <span class="n">NexusProject</span> <span class="o">=</span> <span class="nb">require</span><span class="p">(</span><span class="n">script</span><span class="p">:</span><span class="n">WaitForChild</span><span class="p">(</span><span class="s2">&quot;NexusProject&quot;</span><span class="p">))</span>
+<span class="kd">local</span> <span class="n">Client</span> <span class="o">=</span> <span class="n">NexusProject</span><span class="p">.</span><span class="n">new</span><span class="p">(</span><span class="n">script</span><span class="p">)</span>
+
+<span class="kr">return</span> <span class="n">Client</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="c1">--ReplicatedStorage/Client/Util/ColorUtil</span>
+<span class="kd">local</span> <span class="n">Client</span> <span class="o">=</span> <span class="nb">require</span><span class="p">(</span><span class="n">script</span><span class="p">.</span><span class="n">Parent</span><span class="p">.</span><span class="n">Parent</span><span class="p">):</span><span class="n">GetContext</span><span class="p">(</span><span class="n">script</span><span class="p">)</span>
+<span class="kd">local</span> <span class="n">TweenUtil</span> <span class="o">=</span> <span class="n">Client</span><span class="p">:</span><span class="n">GetResource</span><span class="p">(</span><span class="s2">&quot;Util.TweenUtil&quot;</span><span class="p">)</span>
+<span class="kd">local</span> <span class="n">ColorUtil</span> <span class="o">=</span> <span class="p">{}</span>
+
+<span class="kr">return</span> <span class="n">ColorUtil</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="c1">--ReplicatedStorage/Client/Util/TweenUtil</span>
+<span class="kd">local</span> <span class="n">Client</span> <span class="o">=</span> <span class="nb">require</span><span class="p">(</span><span class="n">script</span><span class="p">.</span><span class="n">Parent</span><span class="p">.</span><span class="n">Parent</span><span class="p">):</span><span class="n">GetContext</span><span class="p">(</span><span class="n">script</span><span class="p">)</span>
+<span class="kd">local</span> <span class="n">TeleportUtil</span> <span class="o">=</span> <span class="n">Client</span><span class="p">:</span><span class="n">GetResource</span><span class="p">(</span><span class="s2">&quot;Util.TeleportUtil&quot;</span><span class="p">)</span>
+<span class="kd">local</span> <span class="n">TweenUtil</span> <span class="o">=</span> <span class="p">{}</span>
+
+<span class="kr">return</span> <span class="n">TweenUtil</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="c1">--ReplicatedStorage/Client/Util/TeleportUtil</span>
+<span class="kd">local</span> <span class="n">Client</span> <span class="o">=</span> <span class="nb">require</span><span class="p">(</span><span class="n">script</span><span class="p">.</span><span class="n">Parent</span><span class="p">.</span><span class="n">Parent</span><span class="p">):</span><span class="n">GetContext</span><span class="p">(</span><span class="n">script</span><span class="p">)</span>
+<span class="kd">local</span> <span class="n">ColorUtil</span> <span class="o">=</span> <span class="n">Client</span><span class="p">:</span><span class="n">GetResource</span><span class="p">(</span><span class="s2">&quot;Util.ColorUtil&quot;</span><span class="p">)</span>
+<span class="kd">local</span> <span class="n">TeleportUtil</span> <span class="o">=</span> <span class="p">{}</span>
+
+<span class="kr">return</span> <span class="n">TeleportUtil</span>
+</pre></div>
+
+
+<p>Would result in the following warning:</p>
+<div class="codehilite"><pre><span></span><span class="nv">A</span> <span class="nv">dependency</span> <span class="k">loop</span> <span class="nv">exists</span>:
+<span class="nv">Util</span>.<span class="nv">ColorUtil</span>
+<span class="nv">Util</span>.<span class="nv">TweenUtil</span>
+<span class="nv">Util</span>.<span class="nv">TeleportUtil</span>
+<span class="nv">Util</span>.<span class="nv">ColorUtil</span>
+<span class="nv">Use</span> <span class="nv">NexusProject</span>::<span class="nv">SetResource</span> <span class="nv">or</span> <span class="nv">NexusProjectContext</span>::<span class="nv">SetContextResource</span> <span class="nv">to</span> <span class="nv">allow</span> <span class="nv">the</span> <span class="k">loop</span> <span class="nv">to</span> <span class="k">end</span> <span class="nv">without</span> <span class="nv">having</span> <span class="nv">to</span> <span class="nv">load</span> <span class="nv">the</span> <span class="nv">resources</span>.
+</pre></div>
+
+
+<p>The last line shows how it can be mitigated. All 3
+modules end up in a deadlock since each need each
+other to finish loading to continue. The quick way
+to resolve this is to set one of the resources so
+the others can finish loading.</p>
+<div class="codehilite"><pre><span></span><span class="c1">--ReplicatedStorage/Client/Util/TweenUtil</span>
+<span class="kd">local</span> <span class="n">Client</span> <span class="o">=</span> <span class="nb">require</span><span class="p">(</span><span class="n">script</span><span class="p">.</span><span class="n">Parent</span><span class="p">.</span><span class="n">Parent</span><span class="p">):</span><span class="n">GetContext</span><span class="p">(</span><span class="n">script</span><span class="p">)</span>
+<span class="kd">local</span> <span class="n">TweenUtil</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="n">Client</span><span class="p">:</span><span class="n">SetContextResource</span><span class="p">(</span><span class="n">TweenUtil</span><span class="p">)</span>
+<span class="kd">local</span> <span class="n">TeleportUtil</span> <span class="o">=</span> <span class="n">Client</span><span class="p">:</span><span class="n">GetResource</span><span class="p">(</span><span class="s2">&quot;Util.TeleportUtil&quot;</span><span class="p">)</span>
+
+<span class="kr">return</span> <span class="n">TweenUtil</span>
 </pre></div>
                 
                   
