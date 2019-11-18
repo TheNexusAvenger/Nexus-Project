@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+     <loc>https://thenexusavenger.github.io/Nexus-Project/</loc>
+     <lastmod>2019-11-17</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>https://thenexusavenger.github.io/Nexus-Project/why-nexus-project/</loc>
+     <lastmod>2019-11-17</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>https://thenexusavenger.github.io/Nexus-Project/getting-started/intended-setup/</loc>
+     <lastmod>2019-11-17</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>https://thenexusavenger.github.io/Nexus-Project/getting-started/classes/nexusproject/</loc>
+     <lastmod>2019-11-17</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>https://thenexusavenger.github.io/Nexus-Project/getting-started/classes/nexusprojectcontext/</loc>
+     <lastmod>2019-11-17</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>https://thenexusavenger.github.io/Nexus-Project/contributing/</loc>
+     <lastmod>2019-11-17</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+</urlset>
