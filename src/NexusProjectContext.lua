@@ -4,7 +4,7 @@ TheNexusAvenger
 Allows tracking of dependencies in a project.
 --]]
 
-local NexusObject = require(script.Parent:WaitForChild("NexusInstance"):WaitForChild("src"):WaitForChild("NexusObject"))
+local NexusObject = require(script.Parent:WaitForChild("NexusInstance"):WaitForChild("NexusObject"))
 
 local NexusProjectContext = NexusObject:Extend()
 NexusProjectContext:SetClassName("NexusProjectContext")
