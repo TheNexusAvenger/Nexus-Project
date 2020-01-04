@@ -34,7 +34,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.4.3">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.6.0">
     
     
       
@@ -42,7 +42,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/application.30686662.css">
+      <link rel="stylesheet" href="../assets/stylesheets/application.1b62728e.css">
       
         <link rel="stylesheet" href="../assets/stylesheets/application-palette.a8b3c06d.css">
       
@@ -53,12 +53,12 @@
       
     
     
-      <script src="../assets/javascripts/modernizr.74668098.js"></script>
+      <script src="../assets/javascripts/modernizr.268332fc.js"></script>
     
     
       
         <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono&display=fallback">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
         <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
       
     
@@ -603,12 +603,12 @@ following scripts:</p>
 
 
 <p>Would result in the following warning:</p>
-<div class="codehilite"><pre><span></span><span class="nv">A</span> <span class="nv">dependency</span> <span class="k">loop</span> <span class="nv">exists</span>:
-<span class="nv">Util</span>.<span class="nv">ColorUtil</span>
-<span class="nv">Util</span>.<span class="nv">TweenUtil</span>
-<span class="nv">Util</span>.<span class="nv">TeleportUtil</span>
-<span class="nv">Util</span>.<span class="nv">ColorUtil</span>
-<span class="nv">Use</span> <span class="nv">NexusProject</span>::<span class="nv">SetResource</span> <span class="nv">or</span> <span class="nv">NexusProjectContext</span>::<span class="nv">SetContextResource</span> <span class="nv">to</span> <span class="nv">allow</span> <span class="nv">the</span> <span class="k">loop</span> <span class="nv">to</span> <span class="k">end</span> <span class="nv">without</span> <span class="nv">having</span> <span class="nv">to</span> <span class="nv">load</span> <span class="nv">the</span> <span class="nv">resources</span>.
+<div class="codehilite"><pre><span></span><span class="err">A dependency loop exists:</span>
+<span class="err">Util.ColorUtil</span>
+<span class="err">Util.TweenUtil</span>
+<span class="err">Util.TeleportUtil</span>
+<span class="err">Util.ColorUtil</span>
+<span class="err">Use NexusProject::SetResource or NexusProjectContext::SetContextResource to allow the loop to end without having to load the resources.</span>
 </pre></div>
 
 
@@ -627,6 +627,7 @@ the others can finish loading.</p>
 </pre></div>
                 
                   
+                
                 
               
               
@@ -694,7 +695,7 @@ the others can finish loading.</p>
       
     </div>
     
-      <script src="../assets/javascripts/application.ac79c3b0.js"></script>
+      <script src="../assets/javascripts/application.808e90bb.js"></script>
       
       <script>app.initialize({version:"1.0.4",url:{base:".."}})</script>
       

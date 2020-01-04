@@ -34,7 +34,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.4.3">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.6.0">
     
     
       
@@ -42,7 +42,7 @@
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/application.30686662.css">
+      <link rel="stylesheet" href="assets/stylesheets/application.1b62728e.css">
       
         <link rel="stylesheet" href="assets/stylesheets/application-palette.a8b3c06d.css">
       
@@ -53,12 +53,12 @@
       
     
     
-      <script src="assets/javascripts/modernizr.74668098.js"></script>
+      <script src="assets/javascripts/modernizr.268332fc.js"></script>
     
     
       
         <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono&display=fallback">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
         <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
       
     
@@ -381,24 +381,25 @@
 <p>Nexus Project simplifies requiring resources in Roblox Lua.
 Using <code>require</code> in Roblox typically involves numerous <code>WaitForChild</code>
 calls, such as:</p>
-<div class="codehilite"><pre><span></span><span class="k">local</span> <span class="n">Script1</span> <span class="o">=</span> <span class="n">require</span><span class="p">(</span><span class="n">game</span><span class="p">.</span><span class="n">Workspace</span><span class="p">:</span><span class="n">WaitForChild</span><span class="p">(</span><span class="ss">&quot;Project&quot;</span><span class="p">):</span><span class="n">WaitForChild</span><span class="p">(</span><span class="ss">&quot;Script1&quot;</span><span class="p">))</span>
-<span class="k">local</span> <span class="n">Script2</span> <span class="o">=</span> <span class="n">require</span><span class="p">(</span><span class="n">game</span><span class="p">.</span><span class="n">Workspace</span><span class="p">:</span><span class="n">WaitForChild</span><span class="p">(</span><span class="ss">&quot;Project&quot;</span><span class="p">):</span><span class="n">WaitForChild</span><span class="p">(</span><span class="ss">&quot;Subfolder1&quot;</span><span class="p">):</span><span class="n">WaitForChild</span><span class="p">(</span><span class="ss">&quot;Script2&quot;</span><span class="p">))</span>
-<span class="k">local</span> <span class="n">Script3</span> <span class="o">=</span> <span class="n">require</span><span class="p">(</span><span class="n">game</span><span class="p">.</span><span class="n">Workspace</span><span class="p">:</span><span class="n">WaitForChild</span><span class="p">(</span><span class="ss">&quot;Project&quot;</span><span class="p">):</span><span class="n">WaitForChild</span><span class="p">(</span><span class="ss">&quot;Subfolder2&quot;</span><span class="p">):</span><span class="n">WaitForChild</span><span class="p">(</span><span class="ss">&quot;Script3&quot;</span><span class="p">))</span>
-<span class="k">local</span> <span class="n">Part1</span> <span class="o">=</span> <span class="n">game</span><span class="p">.</span><span class="n">Workspace</span><span class="p">:</span><span class="n">WaitForChild</span><span class="p">(</span><span class="ss">&quot;Project&quot;</span><span class="p">):</span><span class="n">WaitForChild</span><span class="p">(</span><span class="ss">&quot;Part&quot;</span><span class="p">)</span>
-<span class="p">...</span>
+<div class="codehilite"><pre><span></span><span class="err">local Script1 = require(game.Workspace:WaitForChild(&quot;Project&quot;):WaitForChild(&quot;Script1&quot;))</span>
+<span class="err">local Script2 = require(game.Workspace:WaitForChild(&quot;Project&quot;):WaitForChild(&quot;Subfolder1&quot;):WaitForChild(&quot;Script2&quot;))</span>
+<span class="err">local Script3 = require(game.Workspace:WaitForChild(&quot;Project&quot;):WaitForChild(&quot;Subfolder2&quot;):WaitForChild(&quot;Script3&quot;))</span>
+<span class="err">local Part1 = game.Workspace:WaitForChild(&quot;Project&quot;):WaitForChild(&quot;Part&quot;)</span>
+<span class="err">...</span>
 </pre></div>
 
 
 <p>Nexus Project is designed to simplify this, similar to imports.</p>
-<div class="codehilite"><pre><span></span><span class="k">local</span> <span class="n">Project</span> <span class="o">=</span> <span class="n">NexusProject</span><span class="p">.</span><span class="k">new</span><span class="p">(</span><span class="n">game</span><span class="p">.</span><span class="n">Workspace</span><span class="p">:</span><span class="n">WaitForChild</span><span class="p">(</span><span class="ss">&quot;Project&quot;</span><span class="p">))</span>
-<span class="k">local</span> <span class="n">Script1</span> <span class="o">=</span> <span class="n">Project</span><span class="p">:</span><span class="n">GetResource</span><span class="p">(</span><span class="ss">&quot;Script1&quot;</span><span class="p">)</span>
-<span class="k">local</span> <span class="n">Script2</span> <span class="o">=</span> <span class="n">Project</span><span class="p">:</span><span class="n">GetResource</span><span class="p">(</span><span class="ss">&quot;Subfolder1.Script2&quot;</span><span class="p">)</span>
-<span class="k">local</span> <span class="n">Script3</span> <span class="o">=</span> <span class="n">Project</span><span class="p">:</span><span class="n">GetResource</span><span class="p">(</span><span class="ss">&quot;Subfolder2.Script3&quot;</span><span class="p">)</span>
-<span class="k">local</span> <span class="n">Part1</span> <span class="o">=</span> <span class="n">Project</span><span class="p">:</span><span class="n">GetResource</span><span class="p">(</span><span class="ss">&quot;Part1&quot;</span><span class="p">)</span>
-<span class="p">...</span>
+<div class="codehilite"><pre><span></span><span class="err">local Project = NexusProject.new(game.Workspace:WaitForChild(&quot;Project&quot;))</span>
+<span class="err">local Script1 = Project:GetResource(&quot;Script1&quot;)</span>
+<span class="err">local Script2 = Project:GetResource(&quot;Subfolder1.Script2&quot;)</span>
+<span class="err">local Script3 = Project:GetResource(&quot;Subfolder2.Script3&quot;)</span>
+<span class="err">local Part1 = Project:GetResource(&quot;Part1&quot;)</span>
+<span class="err">...</span>
 </pre></div>
                 
                   
+                
                 
               
               
@@ -452,7 +453,7 @@ calls, such as:</p>
       
     </div>
     
-      <script src="assets/javascripts/application.ac79c3b0.js"></script>
+      <script src="assets/javascripts/application.808e90bb.js"></script>
       
       <script>app.initialize({version:"1.0.4",url:{base:"."}})</script>
       
