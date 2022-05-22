@@ -1,19 +1,9 @@
-  
 {
-	"name": "Nexus-Project",
+	"name": "NexusProject",
 	"tree": {
-		"$className": "DataModel",
-		"ReplicatedStorage": {
-			"$className": "ReplicatedStorage",
-			"NexusProject": {
-				"$path": "src",
-				"NexusInstance": {
-					"$path": "module/Nexus-Instance/src"
-				}
-			},
-				"NexusProjectTests": {
-				"$path": "test"
-			}
+		"$path": "src",
+		"NexusInstance": {
+			"$path": "module/Nexus-Instance/"
 		}
 	}
 }

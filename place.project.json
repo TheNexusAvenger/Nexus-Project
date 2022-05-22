@@ -1,0 +1,15 @@
+{
+	"name": "Nexus-Project",
+	"tree": {
+		"$className": "DataModel",
+		"ReplicatedStorage": {
+			"$className": "ReplicatedStorage",
+			"NexusProject": {
+				"$path": "."
+			},
+			"NexusProjectTests.nexusspec": {
+				"$path": "test"
+			}
+		}
+	}
+}
