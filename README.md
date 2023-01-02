@@ -1,3 +1,5 @@
+**Nexus Project is no longer maintained because it prevents Luau typing from working properly.**
+
 # Nexus-Project
 Nexus Project simplifies requiring resources in Roblox Lua.
 Using `require` in Roblox typically involves numerous `WaitForChild`
@@ -20,7 +22,7 @@ local Part1 = Project:GetResource("Part1")
 ```
 
 ## Documentation
-Documentation for the server and the client (Roblox Studio Plugin) can be found
+Documentation can be found
 on the [GitHub pages](https://thenexusavenger.github.io/Nexus-Project)
 for this project. The [docs folder](docs) can also be used since it has all
 of the markdown files.
@@ -30,5 +32,5 @@ Both issues and pull requests are accepted for this project.
 More information can be found [here](docs/contributing.md).
 
 ## License
-Nexus Instance is available under the terms of the MIT 
+Nexus Project is available under the terms of the MIT 
 Licence. See [LICENSE](LICENSE) for details.
